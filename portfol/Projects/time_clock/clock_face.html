@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock</title>
+
+    <style>
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a18cd1, #fad0c4);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clock-container {
+            text-align: center;
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #333;
+            border-radius: 50%;
+            position: relative;
+            background: white;
+            margin: 0 auto;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            background: #333;
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 50px;
+        }
+
+        .minute-hand {
+            width: 4px;
+            height: 70px;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 90px;
+            background: red;
+        }
+
+        #clockDate {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .dropdown-container {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .dropdown-container select {
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        .ampm {
+            font-size: 1.2rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .ampm-container {
+            position: absolute;
+            bottom: 8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="dropdown-container">
+        <select id="countrySelect"></select>
+    </div>
+
+    <div class="clock-container">
+        <div class="clock" id="clock">
+            <div class="hand hour-hand" id="hourHand"></div>
+            <div class="hand minute-hand" id="minuteHand"></div>
+            <div class="hand second-hand" id="secondHand"></div>
+
+            <div class="number" id="num12">12</div>
+            <div class="number" id="num1">1</div>
+            <div class="number" id="num2">2</div>
+            <div class="number" id="num3">3</div>
+            <div class="number" id="num4">4</div>
+            <div class="number" id="num5">5</div>
+            <div class="number" id="num6">6</div>
+            <div class="number" id="num7">7</div>
+            <div class="number" id="num8">8</div>
+            <div class="number" id="num9">9</div>
+            <div class="number" id="num10">10</div>
+            <div class="number" id="num11">11</div>
+
+            <div class="ampm-container">
+                <span id="ampm"></span>
+            </div>
+        </div>
+
+        <p id="clockDate"></p>
+    </div>
+
+    <script>
+        const countries = [
+            { name: "India", timezone: "Asia/Kolkata" },
+            { name: "United States", timezone: "America/New_York" },
+            { name: "United Kingdom", timezone: "Europe/London" },
+            { name: "Japan", timezone: "Asia/Tokyo" },
+            { name: "Australia", timezone: "Australia/Sydney" },
+            { name: "France", timezone: "Europe/Paris" },
+            { name: "Brazil", timezone: "America/Sao_Paulo" },
+            { name: "South Africa", timezone: "Africa/Johannesburg" },
+            { name: "Russia", timezone: "Europe/Moscow" },
+            { name: "China", timezone: "Asia/Shanghai" },
+            { name: "Canada", timezone: "America/Toronto" },
+            { name: "South Korea", timezone: "Asia/Seoul" },
+            { name: "Mexico", timezone: "America/Mexico_City" },
+            { name: "Italy", timezone: "Europe/Rome" },
+            { name: "Spain", timezone: "Europe/Madrid" },
+            { name: "Germany", timezone: "Europe/Berlin" },
+            { name: "Argentina", timezone: "America/Argentina/Buenos_Aires" },
+            { name: "Turkey", timezone: "Europe/Istanbul" },
+            { name: "Saudi Arabia", timezone: "Asia/Riyadh" },
+            { name: "New Zealand", timezone: "Pacific/Auckland" },
+            { name: "Indonesia", timezone: "Asia/Jakarta" },
+            { name: "Malaysia", timezone: "Asia/Kuala_Lumpur" },
+            { name: "Thailand", timezone: "Asia/Bangkok" },
+            { name: "United Arab Emirates", timezone: "Asia/Dubai" },
+            { name: "Singapore", timezone: "Asia/Singapore" },
+            { name: "Sweden", timezone: "Europe/Stockholm" },
+            { name: "Netherlands", timezone: "Europe/Amsterdam" },
+            { name: "Belgium", timezone: "Europe/Brussels" },
+            { name: "Poland", timezone: "Europe/Warsaw" },
+            { name: "Switzerland", timezone: "Europe/Zurich" },
+            { name: "Norway", timezone: "Europe/Oslo" },
+            { name: "Denmark", timezone: "Europe/Copenhagen" },
+            { name: "Portugal", timezone: "Europe/Lisbon" },
+            { name: "Egypt", timezone: "Africa/Cairo" },
+            { name: "Nigeria", timezone: "Africa/Lagos" },
+            { name: "Kenya", timezone: "Africa/Nairobi" },
+            { name: "Ghana", timezone: "Africa/Accra" },
+            { name: "Israel", timezone: "Asia/Jerusalem" },
+            { name: "Iran", timezone: "Asia/Tehran" },
+            { name: "Pakistan", timezone: "Asia/Karachi" },
+            { name: "Sri Lanka", timezone: "Asia/Colombo" },
+            { name: "Vietnam", timezone: "Asia/Ho_Chi_Minh" },
+            { name: "Philippines", timezone: "Asia/Manila" },
+            { name: "Bangladesh", timezone: "Asia/Dhaka" }
+        ];
+
+        const countrySelect = document.getElementById('countrySelect');
+        let timeInterval;
+
+        function populateDropdown() {
+            countries.forEach((country, index) => {
+                const option = document.createElement('option');
+                option.value = country.timezone;
+                option.textContent = country.name;
+                if (index === 0) option.selected = true;
+                countrySelect.appendChild(option);
+            });
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timezone = countrySelect.value || "Asia/Kolkata";
+            const localTime = new Date(now.toLocaleString("en-US", { timeZone: timezone }));
+
+            const hours = localTime.getHours();
+            const minutes = localTime.getMinutes();
+            const seconds = localTime.getSeconds();
+
+            const hourHand = document.getElementById('hourHand');
+            const minuteHand = document.getElementById('minuteHand');
+            const secondHand = document.getElementById('secondHand');
+            const ampm = document.getElementById('ampm');
+
+            const hourDegrees = (hours % 12) * 30 + minutes / 2;
+            const minuteDegrees = minutes * 6;
+            const secondDegrees = seconds * 6;
+
+            hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+            secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+
+            ampm.textContent = hours >= 12 ? 'PM' : 'AM';
+
+            const numbers = document.querySelectorAll('.number');
+            const numAngles = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+            numbers.forEach((number, index) => {
+                const angle = numAngles[index];
+                const x = 50 + 40 * Math.cos((angle - 90) * (Math.PI / 180));
+                const y = 50 + 40 * Math.sin((angle - 90) * (Math.PI / 180));
+                number.style.left = `${x}%`;
+                number.style.top = `${y}%`;
+            });
+
+            document.getElementById('clockDate').textContent = localTime.toDateString();
+        }
+
+        function startClock() {
+            updateClock();
+            if (timeInterval) clearInterval(timeInterval);
+            timeInterval = setInterval(updateClock, 1000);
+        }
+
+        function handleCountryChange() {
+            updateClock();
+        }
+
+        countrySelect.addEventListener('change', handleCountryChange);
+
+        populateDropdown();
+        startClock();
+    </script>
+</body>
+
+</html>
