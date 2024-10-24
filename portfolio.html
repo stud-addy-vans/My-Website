@@ -13,7 +13,7 @@
 <body>
     <nav id="navbar">
         <div class="container">
-            <h1><a href="Me.png">VansPiker</a></h1>
+            <h1><a href="#">VansPiker</a></h1>
             <ul>
                 <div class="hdbar">
                     <li><a href="index.html">Home</a></li>
@@ -29,15 +29,18 @@
     <section id="portfolio" class="portfolio">
         <div class="portfolio-hero">
             <div class="portfolio-hero-content">
-                <h2>Hi I'm Aditya Owns VansPiker, The Future Unicorn!!!</h2>
-                <p>Say hello to Aditya PS, the website platform designed showcase my work and uncover new opportunities.</p>
-                <a href="#" class="btn">Start</a>
+                <h2>Hi I'm Aditya Owns VansPiker</h2>
+                <p>This portfolio section of this website platform designed to showcase my work and uncover new
+                    opportunities.</p>
+                <a href="#proj" class="btn">Start</a>
             </div>
         </div>
         <div class="portfolio-content">
             <h2>You're in good hands.</h2>
-            <p>Voted most trusted by creative professionals across the globe, VansPiker is the top choice to build your website.</p>
+            <p>Voted most trusted by creative professionals across the globe, VansPiker is the top choice to build your
+                website.</p>
         </div>
+        <section id="proj"></section>
         <div class="portfolio-grid">
             <div class="portfolio-item">
                 <a href="Projects/time_clock/index.html">
@@ -64,8 +67,8 @@
             </div>
         </div>
     </section>
+    </section>
 
-    <!--Testimonials Section-->
     <section id="testimonials" class="testimonials">
         <div class="container">
             <h2>What Clients Say</h2>
@@ -96,69 +99,81 @@
         </div>
     </section>
 
-    <!--Contact Form Section-->
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Me</h2>
-            <form id="contact-form" action="https://script.google.com/macros/s/AKfycbwMYU7_fHzVaWKv8U19CQgPwCqHmLGA5zMwUGcNhLsxVCGEh2f7kye04QpEhdW2j3pdJg/exec" method="post">
+            <form id="contact-form"
+                action="https://script.google.com/macros/s/AKfycbwZv5bpcr40ygtNtPPvz5HgFZ4xTSi-Rqx7e-cSRMYll-Frk7czKew8B1hyVPLj5NUuHA/exec"
+                method="post">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
-    
+
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
-    
+
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
-    
+
                 <button type="submit" class="btn">Send Message</button>
             </form>
             <div id="loading" class="loading-spinner" style="display: none;"></div>
             <p id="form-response"></p>
         </div>
     </section>
-    
+
     <script>
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
             event.preventDefault();
-    
+
             document.getElementById('loading').style.display = 'block';
-    
+
             var form = document.getElementById('contact-form');
             var formData = new FormData(form);
-    
+
             fetch(form.action, {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
-            .then(text => {
-                document.getElementById('loading').style.display = 'none';
-    
-                var responseElement = document.getElementById('form-response');
-                responseElement.textContent = text;
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('loading').style.display = 'none';
 
-                form.reset();
+                    var responseElement = document.getElementById('form-response');
+                    responseElement.textContent = text;
 
-                setTimeout(function() {
-                responseElement.textContent = '';
-                }, 3000);
-            
-            })
-            .catch(error => {
-                document.getElementById('loading').style.display = 'none';
-    
-                var responseElement = document.getElementById('form-response');
-                responseElement.textContent = "Failed to send the message.";
+                    form.reset();
 
-                setTimeout(function() {
-                responseElement.textContent = '';
-                }, 3000);
-                
+                    setTimeout(function () {
+                        responseElement.textContent = '';
+                    }, 3000);
+
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = 'none';
+
+                    var responseElement = document.getElementById('form-response');
+                    responseElement.textContent = "Failed to send the message.";
+
+                    setTimeout(function () {
+                        responseElement.textContent = '';
+                    }, 3000);
+
+                });
+        });
+
+        const startBtn = document.querySelector('.btn');
+
+        startBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const targetSection = document.getElementById('proj');
+            targetSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
             });
         });
+
     </script>
-    
-       
 
     <footer class="footer">
         <p class="footer-v">&copy; 2024 VansPiker. All rights reserved.</p>
