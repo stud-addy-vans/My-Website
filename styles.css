@@ -202,7 +202,7 @@ a.btn:hover {
 
 #portfolio {
     padding: 3.7rem 0;
-    background-color: #c17c7c;
+    background-color: #000000;
 }
 
 .portfolio-hero {
@@ -222,7 +222,7 @@ a.btn:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(33, 4, 4, 0.5);
     z-index: 1;
 }
 
@@ -241,9 +241,14 @@ a.btn:hover {
     margin-bottom: 2rem;
 }
 
+img {
+    width: 100%;
+    height: auto;
+}
+
 .portfolio-content {
-    background-color: #f09f5c48;
-    color: #252221df;
+    background-color: #232323df;
+    color: #ff0000df;
     text-align: center;
     padding: 7rem 0;
 }
@@ -266,7 +271,7 @@ a.btn:hover {
 }
 
 .portfolio-item {
-    background-color: #b3b154d9;
+    background-color: #d1d1d171;
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -277,7 +282,7 @@ a.btn:hover {
 
 .portfolio-item a {
     text-decoration: none;
-    color: #a10000;
+    color: #ffffff;
 }
 
 .portfolio-item h3 {
@@ -297,7 +302,7 @@ a.btn:hover {
 
 .testimonials {
     padding: 5rem 0;
-    background-color: #ae0b0b99;
+    background-color: #96909099;
     text-align: center;
 }
 
@@ -309,7 +314,7 @@ a.btn:hover {
 }
 
 .testimonial-item {
-    background-color: #f0c795c7;
+    background-color: #44362c5c;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -326,7 +331,7 @@ a.btn:hover {
 
 .contact {
     padding: 5rem 0;
-    background-color: #be4141aa;
+    background-color: #483f3faa;
     text-align: center;
 }
 
@@ -376,6 +381,6 @@ a.btn:hover {
 
 .footer .footer-v {
     margin: 1rem;
-    color: #666;
+    color: #2d2d2d;
     text-align: center;
 }
